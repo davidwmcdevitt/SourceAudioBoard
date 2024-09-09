@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DataFrame with Audio</title>
+	<script src="https://cdn.jsdelivr.net/npm/pandas@2.0.3/pandas.min.js"></script>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		table, th, td {
+			border: 1px solid black;
+		}
+		th, td {
+			padding: 8px;
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+	<h1>Pandas DataFrame with Audio</h1>
+	<div id="dataframe-container"></div>
+	<script>
+		// Sample data to display
+		const data = {
+			"Column1": ["Text A", "Text B", "Text C"],
+			"Column2": ["audio1.mp3", "audio2.mp3", "audio3.mp3"]
+		};
+		
+		// Convert the data to a DataFrame
+		const df = new pd.DataFrame(data);
+		
+		// Convert DataFrame to HTML table and inject it into the page
+		document.getElementById("dataframe-container").innerHTML = df.to_html();
+		
+		// Inject audio players for each row
+		const audioFiles = document.querySelectorAll("#dataframe-container td:nth-child(2)");
+		audioFiles.forEach(function(td, index) {
+			const audio = document.createElement("audio");
+			audio.src = td.textContent;
+			audio.controls = true;
+			td.innerHTML = '';
+			td.appendChild(audio);
+		});
+	</script>
+</body>
+</html>
